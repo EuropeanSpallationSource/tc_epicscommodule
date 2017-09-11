@@ -8,6 +8,7 @@ logs.0*
 *.bak
 *.~u
 *.pyc
+*.tmc
 *.tpy
 *.suo
 *~
