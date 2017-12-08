@@ -4,7 +4,7 @@
     <Configuration Condition=" '$(Configuration)' == ''">Debug</Configuration>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{F935F1DE-0753-4702-B418-1DC0ED040A4D}</ProjectGuid>
-    <Name>EpicsComModule</Name>
+    <Name>tc_epicscommodule</Name>
     <TypeSystem>{6e239035-86cc-449f-b68d-ee9b5f60e935}</TypeSystem>
     <Implicit_Task_Info>{13ebe58b-f873-44cf-a73f-5a1fee499497}</Implicit_Task_Info>
     <Implicit_Jitter_Distribution>{51541730-177e-4e8d-a3c2-dbfdc7ab0a96}</Implicit_Jitter_Distribution>
@@ -152,11 +152,6 @@
       <DefaultResolution>Tc3_Module, * (Beckhoff Automation GmbH)</DefaultResolution>
       <Namespace>Tc3_Module</Namespace>
     </PlaceholderReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="EpicsComModule.tmc">
-      <SubType>Content</SubType>
-    </None>
   </ItemGroup>
   <ProjectExtensions>
     <PlcProjectOptions>
