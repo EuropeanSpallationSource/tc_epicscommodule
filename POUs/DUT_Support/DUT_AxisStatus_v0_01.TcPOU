@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.0.25">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.0">
    <POU Name="FB_ReadDUT_AxisStatus_v0_01" Id="{2cc6eee7-8bf6-4fbb-be44-d8dbcc4102bb}">
     <Declaration><![CDATA[FUNCTION_BLOCK FB_ReadDUT_AxisStatus_v0_01
 VAR_INPUT

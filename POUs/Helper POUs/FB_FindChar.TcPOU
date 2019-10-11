@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.0.25">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.0">
   <POU Name="FB_FindChar" Id="{20e205ee-33e9-4460-8cfe-a27b6e4a2d69}">
     <Declaration><![CDATA[FUNCTION_BLOCK FB_FindChar
 VAR

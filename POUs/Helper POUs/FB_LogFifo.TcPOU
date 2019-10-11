@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.0.25">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.0">
   <POU Name="FB_LogFifo" Id="{cf9e956c-1b38-487d-9fc5-7a973b1bb83f}">
     <Declaration><![CDATA[(* Log/debug/error message fifo *)
 FUNCTION_BLOCK FB_LogFifo
