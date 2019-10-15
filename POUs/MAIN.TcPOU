@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.6">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.0">
   <POU Name="MAIN" Id="{7b6efa2b-c8d0-4c9b-b40c-faa65e5b128e}" SpecialFunc="None">
     <Declaration><![CDATA[///#########################################################
 ///Main POU for TCP/IP based EPICS-interface. The TCP/IP server related code is based on Beckhoff sample code. Changes and additions have been made to this code for the general purpose EPICS interface.

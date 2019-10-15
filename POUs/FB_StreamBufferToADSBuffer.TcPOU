@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.0.25">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.0">
   <POU Name="FB_StreamBufferToADSBuffer" Id="{d14862f3-4d19-4f7b-b33b-cf7f857811b2}">
     <Declaration><![CDATA[///#########################################################
 ///Function Block for parsing of ASCII Stream to binary ADS buffer 
