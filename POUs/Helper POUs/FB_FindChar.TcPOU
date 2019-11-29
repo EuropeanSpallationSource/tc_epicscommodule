@@ -3,51 +3,51 @@
   <POU Name="FB_FindChar" Id="{20e205ee-33e9-4460-8cfe-a27b6e4a2d69}">
     <Declaration><![CDATA[FUNCTION_BLOCK FB_FindChar
 VAR
-	sVersion: STRING:='0.9.0';
+    sVersion: STRING:='0.9.0';
 END_VAR
 VAR_INPUT
-	pbBuffer	: POINTER TO ARRAY[0..PLCPRJ_BUFFER_SIZE] OF BYTE; (* Byte *)
-	nLength		: UDINT:=0; // length to search (less than PLCPRJ_BUFFER_SIZE)
-	nStartIndex : UDINT:=0;
-	cFind		: BYTE; //char to find
-	bDirection	: BOOL:=TRUE; // true start from 0, false start from nLength-1	
+    pbBuffer    : POINTER TO ARRAY[0..PLCPRJ_BUFFER_SIZE] OF BYTE; (* Byte *)
+    nLength     : UDINT:=0; // length to search (less than PLCPRJ_BUFFER_SIZE)
+    nStartIndex : UDINT:=0;
+    cFind       : BYTE; //char to find
+    bDirection  : BOOL:=TRUE; // true start from 0, false start from nLength-1
 END_VAR
 VAR_OUTPUT
-	nIndex:UDINT;
+    nIndex:UDINT;
 END_VAR
 VAR
-	bFound: BOOL;
+    bFound: BOOL;
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[nIndex:=-1;
 IF nLength>0 AND nStartIndex<nLength AND nStartIndex>=0 THEN
-	(*IF bDirection THEN
-		nIndex:=0;
-	ELSE
-		IF nLength<(PLCPRJ_BUFFER_SIZE) THEN
-			nIndex:=nLength-1;
-		ELSE
-			nIndex:=UDINT_TO_INT(PLCPRJ_BUFFER_SIZE-1);
-		END_IF
-	END_IF*)
-	
-	nIndex:=nStartIndex;
-	bFound:=FALSE;	
-	WHILE NOT bFound AND nIndex<nLength AND nIndex<PLCPRJ_BUFFER_SIZE AND nIndex>=0 DO	
-		IF pbBuffer^[nIndex]= cFind THEN
-			bFound:=TRUE;
-		ELSE
-			IF bDirection THEN			
-				nIndex:=nIndex+1;
-			ELSE
-				nIndex:=nIndex-1;
-			END_IF	
-		END_IF		
-	END_WHILE;	
-	IF NOT bFound THEN
-		nIndex:=-1;
-	END_IF
+    (*IF bDirection THEN
+        nIndex:=0;
+    ELSE
+        IF nLength<(PLCPRJ_BUFFER_SIZE) THEN
+            nIndex:=nLength-1;
+        ELSE
+            nIndex:=UDINT_TO_INT(PLCPRJ_BUFFER_SIZE-1);
+        END_IF
+    END_IF*)
+
+    nIndex:=nStartIndex;
+    bFound:=FALSE;
+    WHILE NOT bFound AND nIndex<nLength AND nIndex<PLCPRJ_BUFFER_SIZE AND nIndex>=0 DO
+        IF pbBuffer^[nIndex]= cFind THEN
+            bFound:=TRUE;
+        ELSE
+            IF bDirection THEN
+                nIndex:=nIndex+1;
+            ELSE
+                nIndex:=nIndex-1;
+            END_IF
+        END_IF
+    END_WHILE;
+    IF NOT bFound THEN
+        nIndex:=-1;
+    END_IF
 END_IF
 
 ]]></ST>
