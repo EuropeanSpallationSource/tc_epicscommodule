@@ -4,78 +4,78 @@
     <Declaration><![CDATA[///#########################################################
 ///Main POU for TCP/IP based EPICS-interface. The TCP/IP server related code is based on Beckhoff sample code. Changes and additions have been made to this code for the general purpose EPICS interface.
 ///
-///	Library:		
-///	
+/// Library:
 ///
-///	Global Variables:
-///	- EPICS_MAX_FRAME_SIZE					
-///	- EPICS_ARRAY_DELIMITER					
-///	- EPICS_COMMAND_DELIMITER
-/// - PLCPRJ_BUFFER_SIZE				 
 ///
-///	Data types:
-///	
-///	External functions:
-///		- TC2_Standard lib
-///		- Tc2_Utilities lib
-///		- Tc2_System lib
-///		
+/// Global Variables:
+/// - EPICS_MAX_FRAME_SIZE
+/// - EPICS_ARRAY_DELIMITER
+/// - EPICS_COMMAND_DELIMITER
+/// - PLCPRJ_BUFFER_SIZE
+///
+/// Data types:
+///
+/// External functions:
+///     - TC2_Standard lib
+///     - Tc2_Utilities lib
+///     - Tc2_System lib
+///
 ///
 ///###########################################################
 
 PROGRAM MAIN
 VAR
-	sVersion: STRING:='0.9.1';
+    sVersion: STRING:='0.9.1';
 END_VAR
 VAR
-	sSrvNetID	: T_AmsNetID	:= '';(* TwinCAT TCP/IP server network address *)
-	bEnable		: BOOL := TRUE;(* TRUE => Enable server data exchange, FALSE => Disable *)
-	bLog		: BOOL := FALSE;(* TRUE => Enable message/error log, FALSE => Disable *)
-	
-	fbServer	: FB_Server := ( 	sLocalHost :=  '0.0.0.0' (*Own (server) IP address!  '192.168.40.106'*), 
-									nLocalPort := 5000,(* Own (server) port number! *) 
-									sPrefix := 'SERVER::' );
+    sSrvNetID   : T_AmsNetID    := '';(* TwinCAT TCP/IP server network address *)
+    bEnable     : BOOL := TRUE;(* TRUE => Enable server data exchange, FALSE => Disable *)
+    bLog        : BOOL := FALSE;(* TRUE => Enable message/error log, FALSE => Disable *)
 
-	fbCloseAll	: FB_SocketCloseAll;
-	bInitialize	: BOOL := TRUE;
-	
-	//Included utilities in EpicsComModule
-	fbNTShutdown: NT_Shutdown;
-	fbNTAbortShutdown:NT_AbortShutdown;
-	iCounter:INT:=0;
-	bErrorWritten:BOOL:=FALSE;
-	sErrorMessage:STRING(255);
+    fbServer    : FB_Server := (    sLocalHost :=  '0.0.0.0' (*Own (server) IP address!  '192.168.40.106'*),
+                                    nLocalPort := 5000,(* Own (server) port number! *)
+                                    sPrefix := 'SERVER::' );
+
+    fbCloseAll  : FB_SocketCloseAll;
+    bInitialize : BOOL := TRUE;
+
+    //Included utilities in EpicsComModule
+    fbNTShutdown: NT_Shutdown;
+    fbNTAbortShutdown:NT_AbortShutdown;
+    iCounter:INT:=0;
+    bErrorWritten:BOOL:=FALSE;
+    sErrorMessage:STRING(255);
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[//Delay execution
 IF EPICS_SAMPLE_TIME>100 THEN
-	EPICS_SAMPLE_TIME:=100;
+    EPICS_SAMPLE_TIME:=100;
 ELSIF  EPICS_SAMPLE_TIME<1 THEN
-	EPICS_SAMPLE_TIME:=1;	
+    EPICS_SAMPLE_TIME:=1;
 END_IF
 
 iCounter:=iCounter+1;
 IF iCounter>=EPICS_SAMPLE_TIME THEN  //Possability to change communcation execution speed from EPICS (via the global variable EPICS_SAMPLE_TIME)
-	iCounter:=0;
-	(* On PLC reset or program download close all created/opened sockets/connections *)
-	fbCloseAll( sSrvNetID := sSrvNetID, bExecute:= bInitialize );
-	IF fbCloseAll.bError AND NOT bErrorWritten THEN
-		sErrorMessage:=UDINT_TO_STRING(fbCloseAll.nErrId);
-		ADSLOGSTR( ADSLOG_MSGTYPE_ERROR, 'EPICSComModule: fbCloseAll failed with errorId %s.', sErrorMessage);
-		bErrorWritten:=TRUE;
-	END_IF
-	IF fbCloseAll.bBusy OR fbCloseAll.bError THEN
-	    RETURN;
-	END_IF
-	bErrorWritten:=FALSE;
-	bInitialize := FALSE;
-	fbServer( sSrvNetID := sSrvNetID, bEnable := bEnable, bLog := bLog );
+    iCounter:=0;
+    (* On PLC reset or program download close all created/opened sockets/connections *)
+    fbCloseAll( sSrvNetID := sSrvNetID, bExecute:= bInitialize );
+    IF fbCloseAll.bError AND NOT bErrorWritten THEN
+        sErrorMessage:=UDINT_TO_STRING(fbCloseAll.nErrId);
+        ADSLOGSTR( ADSLOG_MSGTYPE_ERROR, 'EPICSComModule: fbCloseAll failed with errorId %s.', sErrorMessage);
+        bErrorWritten:=TRUE;
+    END_IF
+    IF fbCloseAll.bBusy OR fbCloseAll.bError THEN
+        RETURN;
+    END_IF
+    bErrorWritten:=FALSE;
+    bInitialize := FALSE;
+    fbServer( sSrvNetID := sSrvNetID, bEnable := bEnable, bLog := bLog );
 END_IF
 
 //Execution of utilities Action
 Utilities();
-	
+
 
 
 
